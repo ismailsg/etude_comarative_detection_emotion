@@ -92,7 +92,7 @@ def detect_emotion_with_rmn(image_path):
         return "No Face Detected"
 
 def main():
-    data_dir = "/home/ismail/Documents/test2"
+    data_dir = "/home/ismail/Documents/test"
     emotions = ["anger","happy", "sad", "surprise", "disgust", "fear", "neutral"]
     #emotions = ["sad"]
 
