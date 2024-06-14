@@ -93,11 +93,11 @@ def detect_emotion_with_rmn(image_path):
 
 def main():
     data_dir = "/home/ismail/Documents/test2"
-    #emotions = ["anger","happy", "sad", "surprise", "disgust", "fear", "neutral"]
-    emotions = ["sad"]
+    emotions = ["anger","happy", "sad", "surprise", "disgust", "fear", "neutral"]
+    #emotions = ["sad"]
 
-    #results = {emotion: {method: [] for method in ['deepface', 'fer', 'feat', 'rmn']} for emotion in emotions}
-    results = {emotion: {method: [] for method in ['feat']} for emotion in emotions}
+    results = {emotion: {method: [] for method in ['deepface', 'fer', 'feat', 'rmn']} for emotion in emotions}
+    #results = {emotion: {method: [] for method in ['feat']} for emotion in emotions}
 
     # Parcourir chaque dossier d'émotion
     for emotion in emotions:
@@ -113,10 +113,10 @@ def main():
                 # Vérifier si l'image existe
                 if os.path.isfile(img_path):
                     # Faire des prédictions avec chaque méthode de détection d'émotion
-                    #results[emotion]['deepface'].append(detect_emotion_with_deepface(img_path))
-                    #results[emotion]['fer'].append(detect_emotion_with_fer(img_path))
+                    results[emotion]['deepface'].append(detect_emotion_with_deepface(img_path))
+                    results[emotion]['fer'].append(detect_emotion_with_fer(img_path))
                     results[emotion]['feat'].append(detect_emotion_with_feat(img_path))
-                    #results[emotion]['rmn'].append(detect_emotion_with_rmn(img_path))
+                    results[emotion]['rmn'].append(detect_emotion_with_rmn(img_path))
                 else:
                     print(f"Warning: Image {img_path} not found.") 
 
@@ -124,8 +124,8 @@ def main():
     # Calculer l'accuracy pour chaque méthode de détection d'émotion
     #accuracies = {method: {} for method in ['deepface', 'fer', 'feat', 'rmn']}
     accuracies = {method: {} for method in ['feat']}
-    for method in ['feat']:
-    #for method in ['deepface', 'fer', 'feat', 'rmn']:
+    #for method in ['feat']:
+    for method in ['deepface', 'fer', 'feat', 'rmn']:
         for emotion in emotions:
             correct_predictions = sum([1 for true_emotion, predicted_emotion in zip([emotion]*len(results[emotion][method]), results[emotion][method]) if true_emotion == predicted_emotion])
             accuracy = correct_predictions / len(results[emotion][method]) * 100
